@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   addToList,
   removeFromPendingList,
   markComplete,
   removeFromCompletedList,
   editPendingListTask,
-} from "../redux-toolkit/todoSlice";
+} from '../redux-toolkit/todoSlice';
 const Todo = () => {
   const dispatch = useDispatch();
-  const [task, setTask] = useState("");
+  const [task, setTask] = useState('');
   const pList = useSelector((state) => state.todo.pendingList);
   const cList = useSelector((state) => state.todo.completedList);
-  const [selected, setSelected] = useState("All");
-  const [edit, setEdit] = useState({ id: "", title: "" });
+  const [selected, setSelected] = useState('All');
+  const [edit, setEdit] = useState({ id: '', title: '' });
 
   const [pendingList, setPendingList] = useState([]);
   const [completedList, setCompletedList] = useState([]);
@@ -35,25 +35,24 @@ const Todo = () => {
   };
   return (
     <div class="container mt-5" id="page-content">
-      <div class="padding">
+      <div class="padding ">
         <div class="row container d-flex justify-content-center">
           <div class="col-md-12">
-            <div class="card px-3">
+            <div class="bg-dark card px-3">
               <div class="card-body">
-                <h4 class="card-title">My Todo list</h4>
                 <div class="add-items d-flex">
                   <input
                     onChange={(e) => setTask(e.target.value)}
                     type="text"
                     class="form-control todo-list-input"
-                    placeholder="What do you need to do today?"
+                    placeholder="Whats need to be done"
                     value={task}
                   />
                   <button
                     disabled={!task}
                     onClick={() => {
                       dispatch(addToList(task));
-                      setTask("");
+                      setTask('');
                     }}
                     class="add btn btn-primary font-weight-bold todo-list-add-btn"
                   >
@@ -68,40 +67,44 @@ const Todo = () => {
                 ></input>
                 <div class="list-wrapper">
                   <button
-                    onClick={() => setSelected("All")}
+                    onClick={() => setSelected('All')}
                     className={
-                      selected === "All"
-                        ? "add btn btn-primary font-weight-bold todo-list-add-btn mt-3"
-                        : "add btn font-weight-bold todo-list-add-btn mt-3"
+                      selected === 'All'
+                        ? 'add btn text-light font-weight-bold todo-list-add-btn mt-3'
+                        : 'add btn text-light  todo-list-add-btn mt-3'
                     }
                   >
-                    All
+                    View All
                   </button>
                   <button
-                    onClick={() => setSelected("Pending")}
+                    onClick={() => setSelected('Pending')}
                     className={
-                      selected === "Pending"
-                        ? "add btn btn-primary font-weight-bold todo-list-add-btn mt-3"
-                        : "add btn font-weight-bold todo-list-add-btn mt-3"
+                      selected === 'Pending'
+                        ? 'add btn text-light font-weight-bold todo-list-add-btn mt-3'
+                        : 'add btn text-light todo-list-add-btn mt-3'
                     }
                   >
-                    Pending
+                    Active
                   </button>
                   <button
-                    onClick={() => setSelected("Completed")}
+                    onClick={() => setSelected('Completed')}
                     className={
-                      selected === "Completed"
-                        ? "add btn btn-primary font-weight-bold todo-list-add-btn mt-3 "
-                        : "add btn font-weight-bold todo-list-add-btn mt-3"
+                      selected === 'Completed'
+                        ? 'add btn text-light font-weight-bold todo-list-add-btn mt-3 '
+                        : 'add btn text-light todo-list-add-btn mt-3'
                     }
                   >
                     Completed
                   </button>
-                  <ul class="d-flex flex-column-reverse todo-list">
-                    {(selected === "Pending" || selected === "All") &&
+                  <ul class="pt-3 d-flex flex-column-reverse todo-list">
+                    {(selected === 'Pending' || selected === 'All') &&
                       pendingList.map((l) => (
-                        <div class="p-3 d-flex row">
+                        <div class="pb-2 d-flex row">
                           <div key={l.id} className="col-6">
+                            <i
+                              style={{ color: 'grey' }}
+                              class="pr-2 fa-solid fa-circle-check"
+                            ></i>
                             {edit.id !== l.id && (
                               <span class="form-check-label">{l.title}</span>
                             )}
@@ -120,19 +123,19 @@ const Todo = () => {
                             <>
                               <div className="col-6">
                                 <i
-                                  style={{ cursor: "pointer" }}
+                                  style={{ cursor: 'pointer' }}
                                   onClick={() =>
                                     dispatch(removeFromPendingList(l.id))
                                   }
                                   className="fa fa-trash"
                                 ></i>
                                 <i
-                                  style={{ cursor: "pointer" }}
+                                  style={{ cursor: 'pointer' }}
                                   onClick={() => setEdit(l)}
                                   className="fa fa-pen ml-2"
                                 ></i>
                                 <i
-                                  style={{ cursor: "pointer" }}
+                                  style={{ cursor: 'pointer' }}
                                   onClick={() => dispatch(markComplete(l.id))}
                                   className="fa fa-check ml-2"
                                 ></i>
@@ -143,7 +146,7 @@ const Todo = () => {
                             <>
                               <div className="col-6">
                                 <i
-                                  style={{ cursor: "pointer" }}
+                                  style={{ cursor: 'pointer' }}
                                   onClick={() => {
                                     dispatch(editPendingListTask(edit));
                                     setEdit({});
@@ -151,7 +154,7 @@ const Todo = () => {
                                   className="fa fa-save ml-2"
                                 ></i>
                                 <i
-                                  style={{ cursor: "pointer" }}
+                                  style={{ cursor: 'pointer' }}
                                   onClick={() => setEdit({})}
                                   className="fa-solid fa-ban ml-2"
                                 ></i>
@@ -160,15 +163,24 @@ const Todo = () => {
                           )}
                         </div>
                       ))}
-                    {(selected === "Completed" || selected === "All") &&
+                    {(selected === 'Completed' || selected === 'All') &&
                       completedList.map((l) => (
-                        <div class="p-3 d-flex row">
+                        <div class="pb-2 d-flex row">
                           <div key={l.id} className="col-6">
-                            <span class="form-check-label">{l.title}</span>
+                            <i
+                              style={{ color: '#bbff99' }}
+                              class="pr-2 fa-solid fa-circle-check"
+                            ></i>
+                            <span
+                              style={{ color: '#bbff99' }}
+                              class="form-check-label"
+                            >
+                              <s style={{ color: '#77ff33' }}> {l.title}</s>
+                            </span>
                           </div>
                           <div className="col-6">
                             <i
-                              style={{ cursor: "pointer" }}
+                              style={{ cursor: 'pointer' }}
                               onClick={() =>
                                 dispatch(removeFromCompletedList(l.id))
                               }

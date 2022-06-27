@@ -1,6 +1,5 @@
-import { memo } from "react";
-import { Navigate } from "react-router-dom";
-import { useSelector } from "react-redux/es/exports";
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux/es/exports';
 const AuthRoute = ({ component: Component }) => {
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
   if (!isAuthenticated) return <Component />;
@@ -9,4 +8,4 @@ const AuthRoute = ({ component: Component }) => {
   }
 };
 
-export default memo(AuthRoute);
+export default AuthRoute;

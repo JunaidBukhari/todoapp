@@ -1,20 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux/es/exports";
-import { handlelogout } from "../redux-toolkit/action";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux/es/exports';
+import { handlelogout } from '../redux-toolkit/action';
 
 const Header = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.login.isAuthenticated);
-  const user=useSelector((state) => state.login.loggedInUser);
-console.log(user)
+  const user = useSelector((state) => state.login.loggedInUser);
+  console.log(user);
   const navigate = useNavigate();
   const logout = () => {
     dispatch(handlelogout(navigate));
   };
   return (
-    <div id="home" className="navbar navbar-expand-lg navbar-light bg-light">
+    <div id="home" className="bg-dark navbar navbar-expand-lg navbar-dark">
       <div className="container-fluid">
         <Link to="/" className="navbar-brand">
           My APP
@@ -25,10 +25,10 @@ console.log(user)
               <Link to="/todo" className="navbar-brand active">
                 Todo
               </Link>
-          
             </li>
-          </ul></div>
-          {isAuthenticated &&<span>Welcome {user.title}</span>}
+          </ul>
+        </div>
+        {isAuthenticated && <span>Welcome {user.title}</span>}
         <button
           className="navbar-toggler"
           type="button"
@@ -41,8 +41,10 @@ console.log(user)
           <span className="navbar-toggler-icon"></span>
         </button>
 
-
-        <div className="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+        <div
+          className="collapse navbar-collapse d-flex justify-content-end"
+          id="navbarSupportedContent"
+        >
           {isAuthenticated && (
             <button onClick={logout} className="btn btn-warning mr-5">
               Logout
